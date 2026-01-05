@@ -1,0 +1,11 @@
+# CGW Phase 0 Requirements
+# Python >= 3.12
+
+# Core
+torch>=2.0
+
+# Optional: Visualization
+matplotlib>=3.5
+
+# Development (optional)
+pytest>=7.0
