@@ -1,0 +1,106 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "gpuType": "T4",
+      "mount_file_id": "1PuLRfcsYFG6GTXjeX4NB9mYX5N2LYZg2",
+      "authorship_tag": "ABX9TyPMUldvi99F2Vw2/foMhYbM",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "accelerator": "GPU"
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/SergTod/CGW/blob/main/My%20ModelV1\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 26,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "NQtnvXKOIM1F",
+        "outputId": "1c2f5fab-f318-4f0e-86c6-ea13c1de18b9"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "✓ Loaded 0C checkpoint from logs/run_0c/best_model.pt\n",
+            "✓ Loaded verifier from logs/phase_2a/best_verifier.pt\n",
+            "============================================================\n",
+            "PHASE 2C: Adaptive-K\n",
+            "============================================================\n",
+            "Device: cpu\n",
+            "Policy: V≥0.6→K=1, V≥0.4→K=3, else K=8\n",
+            "\n",
+            "\n",
+            "============================================================\n",
+            "PHASE 2C RESULTS (Adaptive-K with Verifier)\n",
+            "============================================================\n",
+            "\n",
+            "Overall: 68.7%\n",
+            "Medium+Hard: 41.7%\n",
+            "\n",
+            "By Difficulty:\n",
+            "               2C      K=8      K=3    Δ(2C-K8)    Δ(2C-K3)\n",
+            "-----------------------------------------------------------------\n",
+            "Easy       86.7%   97.8%   80.0% 📉  -11.1% 📈   +6.7%\n",
+            "Medium     40.0%   35.6%   28.9% 📈   +4.4% 📈  +11.1%\n",
+            "Hard       46.7%   26.7%   13.3% 📈  +20.0% 📈  +33.4%\n",
+            "\n",
+            "============================================================\n",
+            "ROUTING\n",
+            "============================================================\n",
+            "K=1:  35 (23.3%) | Acc:80.0% | Exp:9.3\n",
+            "K=3:  28 (18.7%) | Acc:64.3% | Exp:29.2\n",
+            "K=8:  87 (58.0%) | Acc:65.5% | Exp:78.6\n",
+            "\n",
+            "============================================================\n",
+            "ROUTING BY DIFFICULTY\n",
+            "============================================================\n",
+            "Easy  : K=1:3777.8%  K=3:2666.7%  K=8:3555.6%  \n",
+            "Medium: K=1:222.2%  K=3:666.7%  K=8:9111.1%  \n",
+            "Hard  : K=1: 0.0%  K=3:666.7%  K=8:9333.3%  \n",
+            "\n",
+            "============================================================\n",
+            "COMPUTE\n",
+            "============================================================\n",
+            "K=3: ~29.2 | K=8: ~78.1 | 2C: ~53.2\n",
+            "Savings vs K=8: 31.9%\n",
+            "\n",
+            "============================================================\n",
+            "PASS CRITERIA\n",
+            "============================================================\n",
+            "  1) Within 4pts of K=8: ✅ (gap=3.3%)\n",
+            "  2) Medium/Hard ≥ K=3: ✅ (M:40.0%/28.9%, H:46.7%/13.3%)\n",
+            "  3) ≥30% savings vs K=8: ✅ (31.9%)\n",
+            "\n",
+            "🎉 PHASE 2C PASSED! Ship it! 🚀\n"
+          ]
+        }
+      ],
+      "source": [
+        "!python phase_2c_adaptive_k.py --theta-easy 0.60 --theta-mid 0.40"
+      ]
+    }
+  ]
+}
